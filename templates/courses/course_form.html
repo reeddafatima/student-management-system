@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="mb-4 text-center">{% if form.instance.pk %}Edit Course{% else %}Add Course{% endif %}</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary w-100">
+            {% if form.instance.pk %}Update{% else %}Create{% endif %}
+        </button>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="{% url 'courses:course_list' %}">Back to Courses</a>
+    </div>
+</div>
+{% endblock %}

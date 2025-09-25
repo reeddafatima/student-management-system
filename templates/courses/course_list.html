@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Courses</h2>
+<div class="row">
+  {% for course in courses %}
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ course.title }}</h5>
+          <p class="card-text">{{ course.description|truncatechars:120 }}</p>
+          <p><strong>Credits:</strong> {{ course.credits }}</p>
+          <a href="{% url 'courses:course_detail' course.id %}" class="btn btn-sm btn-outline-primary">Open</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No courses available.</p>
+  {% endfor %}
+</div>
+{% endblock %}

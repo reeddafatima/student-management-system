@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="mb-4 text-center">Delete Course</h2>
+    <p>Are you sure you want to delete "{{ object.title }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger w-100">Delete</button>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="{% url 'courses:course_list' %}">Cancel</a>
+    </div>
+</div>
+{% endblock %}

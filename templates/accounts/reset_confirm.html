@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="mb-4 text-center">Reset Your Password</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="id_otp" class="form-label">OTP Code</label>
+            {{ form.otp }}
+            {% if form.otp.errors %}
+                <div class="text-danger small">{{ form.otp.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_new_password1" class="form-label">New Password</label>
+            {{ form.new_password1 }}
+            {% if form.new_password1.errors %}
+                <div class="text-danger small">{{ form.new_password1.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_new_password2" class="form-label">Confirm Password</label>
+            {{ form.new_password2 }}
+            {% if form.new_password2.errors %}
+                <div class="text-danger small">{{ form.new_password2.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="{% url 'accounts:login' %}">Back to Login</a>
+    </div>
+</div>
+{% endblock %}

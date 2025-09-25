@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ course.title }}</h2>
+<p>{{ course.description }}</p>
+<p><strong>Credits:</strong> {{ course.credits }}</p>
+
+<form method="post" action="{% url 'courses:course_favorite' course.id %}">
+  {% csrf_token %}
+  <button class="btn btn-outline-secondary">
+    {% if user.is_authenticated and user in course.favorites.all %}
+      Remove Favorite
+    {% else %}
+      Add Favorite
+    {% endif %}
+  </button>
+</form>
+
+{% if user.is_staff %}
+  <a href="{% url 'courses:course_edit' course.id %}" class="btn btn-warning mt-2">Edit</a>
+  <a href="{% url 'courses:course_delete' course.id %}" class="btn btn-danger mt-2">Delete</a>
+{% endif %}
+{% endblock %}
